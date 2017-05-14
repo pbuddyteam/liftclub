@@ -1,69 +1,53 @@
-angular.module('starter.controllers', ['firebase', 'starter.services'])
+angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function($scope) {
+.controller('AppCtrl', function($scope,$state, $ionicModal, $cordovaOauth,$timeout,LoginService) {
+	if(localStorage.getItem('access_token')===null){
+		alert('not logged in');
+		
+		
+	}
+	else{
+	$state.go('app.home'); 
+		
+		//alert('loggedin'+localStorage.getItem('access_token'))
+	}
+		$scope.GetFacebook = function(){
+		 $cordovaOauth.facebook("235133553636318", ["email",'user_relationships','public_profile']).then(function(result) {
+          localStorage.setItem('access_token',result.access_token);
+		  alert(result)
 
-  })
+		}, function(error) {
+			alert("Auth Failed..!!"+error);
+		});	
+		}
 
-  .controller('ChatsCtrl', function($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
+})
 
-    $scope.chats = Chats.all();
-    $scope.remove = function(chat) {
-      Chats.remove(chat);
-    };
+.controller('HomeCntr', function($scope,$ionicSideMenuDelegate, $cordovaOauth, $ionicModal,$ionicActionSheet, $timeout, $http, $log,$state, $location, $ionicPopup, $compile,$ionicLoading) {
+displayData($http, localStorage.getItem('access_token'))
+			
+		
+			
+	
+	
+		function displayData($http, access_token)
+{
+    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,gender,location,picture", format: "json" }}).then(function(result) {
+        var name = result.data.name;
+        var gender = result.data.gender;
+        var picture = result.data.picture;
 
-  })
-
-  .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-  })
-
-  .controller('AccountCtrl', function($scope, Auth, $state) {
-    $scope.settings = {
-      enableFriends: true
-    };
-
-    $scope.logout = function() {
-      Auth.$unauth();
-      $state.go('login');
-    };
-  })
-
-  .controller("LoginCtrl", function($scope, Auth, $state) {
-
-    $scope.login = function() {
-      Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
-        // User successfully logged in
-      }).catch(function(error) {
-        if (error.code === "TRANSPORT_UNAVAILABLE") {
-          Auth.$authWithOAuthPopup("facebook").then(function(authData) {
-            // User successfully logged in. We can log to the console
-            // since we’re using a popup here
-            console.log(authData);
-            //$scope.authData = authData; // This will display the user's name in our view
-          });
-        } else {
-          // Another error occurred
-          console.log(error);
-        }
-      });
-    };
-
-    Auth.$onAuth(function(authData) {
-      if (authData === null) {
-        console.log("Not logged in yet");
-        $scope.authData = null;
-      } else {
-        console.log("Logged in as", authData.uid);
-        $state.go('tab.dash');
-      }
-      $scope.authData = authData; // This will display the user's name in our view
+     var html= name + " "+gender;
+ 
+     $scope.pic=picture.data.url;
+     $scope.oath=html;
+ 
+    }, function(error) {
+        alert("Error: " + error);
     });
-
-  });
+}
+  
+					
+	 }
+	 //***********************End**********************************///
+);

@@ -1,0 +1,23 @@
+{
+  "Markers":
+  [
+    {
+      "name": "medupi",
+      "lattitude": -25.907563,
+      "longitute": 28.098210
+
+    },
+	{
+      "name": "john",
+      "lattitude": -25.80,
+      "longitute": 28.098210
+
+    },
+	{
+      "name": "Peter",
+      "lattitude": -25.95,
+      "longitute": 28.098210
+
+    }
+  ]
+}

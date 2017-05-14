@@ -1,1 +1,15 @@
 /* Empty. Add your own CSS if you like */
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll {
+  height: 100%;
+}
+.home-page{
+	
+}
+.first-page{
+	background:#254e62;
+}
