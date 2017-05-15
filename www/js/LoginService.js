@@ -1,15 +1,18 @@
 angular.module('starter')
     .factory('LoginService', function ($rootScope,$cordovaOauth,$http, $window, $q, $log, $ionicLoading) {
-       var service = {
-            token: '',
-            GetAccessToken: GetAccessToken
-        };
-        return service;
+  
+  return {
+    GetUserProfile: function(access_token) {
+     return  $http.get("https://graph.facebook.com/v2.2/me",
+              	 {params: {access_token: access_token, fields: "name,gender,location,picture,email", 
+				 format: "json" }})
 
-	  function GetAccessToken(){
-		  var def = $q.defer();
-       
-	
-	   }
-
+  },
+  Logout: function(){
+	     localStorage.clear();
+	  }
+		  
+	  
+  }
+  
   });

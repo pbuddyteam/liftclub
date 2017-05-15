@@ -1,0 +1,27 @@
+<ion-view title="Passengers" id="page6">
+  <ion-content padding="true" class="has-header">
+    <form id="passengers-form2" class="list">
+      <div id="passengers-container2">
+        <form id="passengers-form5" class="list">
+          <label class="item item-input location" id="passengers-search4" name="pickup">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" placeholder="Pick Up">
+          </label>
+        </form>
+      </div>
+      <label class="item item-input location" id="passengers-search2" name="dropoff">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Drop Off Adress">
+      </label>
+      <ion-toggle toggle-class="toggle-positive" id="passengers-toggle2" name="ldinstance">Long Distance</ion-toggle>
+      <ion-toggle toggle-class="toggle-positive" id="passengers-toggle1" name="sdistance" class="distancefilter">Short Distance</ion-toggle>
+    </form>
+    <form id="passengers-form6" class="list">
+      <label class="item item-input" id="passengers-input4" name="amount">
+        <input type="text" placeholder="Trip fare price">
+      </label>
+      <div class="spacer" style="height: 10px;"></div>
+    </form>
+    <button id="passengers-button12" class="button button-positive  button-block">Send Pick Up Request</button>
+  </ion-content>
+</ion-view>
